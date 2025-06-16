@@ -1,15 +1,29 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState('');
-  // Placeholder for user authentication state
-  const user = null; // Replace with actual user state later
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
     console.log('Search query:', searchQuery);
-    // Implement search functionality later
+    // Implement search later
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/login');
   };
 
   return (
@@ -28,7 +42,15 @@ function Header() {
       </form>
       <div>
         {user ? (
-          <span className="text-gray-700">{user.username}</span>
+          <div className="flex items-center gap-4">
+            <span className="text-gray-700">{user.username}</span>
+            <button
+              onClick={handleSignOut}
+              className="text-blue-600 hover:underline"
+            >
+              Sign Out
+            </button>
+          </div>
         ) : (
           <Link to="/login" className="text-blue-600 hover:underline">
             Sign In
