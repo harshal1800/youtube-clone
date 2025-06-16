@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const videoRoutes = require('./routes/video');
+const channelRoutes = require('./routes/channel');
 require('dotenv').config();
 
 const app = express();
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/videos', videoRoutes);
+app.use('/api/channels', channelRoutes);
 
 app.get('/', (req, res) => {
   res.send('YouTube Clone Server is running!');
