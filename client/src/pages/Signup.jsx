@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import Header from '../components/Header';
 
 function Signup() {
@@ -25,9 +26,12 @@ function Signup() {
         userId: response.data.userId,
         username: response.data.username,
       }));
+      toast.success('Signed up successfully!');
       navigate('/');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Signup failed');
+    } catch (_err) {
+      const message = _err.response?.data?.message || 'Signup failed';
+      setError(message);
+      toast.error(message);
     }
   };
 

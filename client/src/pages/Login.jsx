@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import Header from '../components/Header';
 
 function Login() {
@@ -16,15 +17,17 @@ function Login() {
         email,
         password,
       });
-      // Store token and user info (simplified, use context or localStorage in production)
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify({
         userId: response.data.userId,
         username: response.data.username,
       }));
+      toast.success('Logged in successfully!');
       navigate('/');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+    } catch (_err) {
+      const message = _err.response?.data?.message || 'Login failed';
+      setError(message);
+      toast.error(message);
     }
   };
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
@@ -9,6 +10,7 @@ function VideoPlayer() {
   const [video, setVideo] = useState(null);
   const [commentText, setCommentText] = useState('');
   const [error, setError] = useState('');
+  const [isLiked, setIsLiked] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
@@ -18,6 +20,7 @@ function VideoPlayer() {
         setVideo(response.data);
       } catch (_err) {
         setError('Failed to load video');
+        toast.error('Failed to load video');
       }
     };
     fetchVideo();
@@ -27,6 +30,7 @@ function VideoPlayer() {
     e.preventDefault();
     if (!user) {
       setError('Please log in to comment');
+      toast.error('Please log in to comment');
       return;
     }
     try {
@@ -46,9 +50,21 @@ function VideoPlayer() {
         comments: [...video.comments, response.data],
       });
       setCommentText('');
+      toast.success('Comment added!');
     } catch (_err) {
       setError(_err.response?.data?.message || 'Failed to add comment');
+      toast.error(_err.response?.data?.message || 'Failed to add comment');
     }
+  };
+
+  const handleLike = () => {
+    if (!user) {
+      setError('Please log in to like');
+      toast.error('Please log in to like');
+      return;
+    }
+    setIsLiked(!isLiked);
+    toast.success(isLiked ? 'Like removed!' : 'Video liked!');
   };
 
   if (error) return <p className="text-red-500 text-center mt-10">{error}</p>;
@@ -66,6 +82,14 @@ function VideoPlayer() {
             <div className="w-full h-96 bg-gray-200 flex items-center justify-center">
               <p>Video Player Placeholder (URL: {video.thumbnailUrl})</p>
             </div>
+            <button
+              onClick={handleLike}
+              className={`mt-2 px-4 py-2 rounded-lg ${
+                isLiked ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-700'
+              }`}
+            >
+              {isLiked ? 'Unlike' : 'Like'}
+            </button>
             <p className="mt-2">{video.description}</p>
           </div>
           <div className="mt-6">
