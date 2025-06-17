@@ -43,7 +43,9 @@ function Header() {
       <div>
         {user ? (
           <div className="flex items-center gap-4">
-            <span className="text-gray-700">{user.username}</span>
+            <Link to={`/channel/${user.userId}`} className="text-gray-700 hover:underline">
+              {user.username}
+            </Link>
             <button
               onClick={handleSignOut}
               className="text-blue-600 hover:underline"

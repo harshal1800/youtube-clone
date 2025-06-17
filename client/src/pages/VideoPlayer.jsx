@@ -16,7 +16,7 @@ function VideoPlayer() {
       try {
         const response = await axios.get(`http://localhost:5000/api/videos/${id}`);
         setVideo(response.data);
-      } catch (err) {
+      } catch (_err) {
         setError('Failed to load video');
       }
     };
@@ -34,7 +34,7 @@ function VideoPlayer() {
         'http://localhost:5000/api/comments',
         {
           videoId: id,
-          commentId: `comment${Date.now()}`, // Simple unique ID
+          commentId: `comment${Date.now()}`,
           text: commentText,
         },
         {
@@ -46,8 +46,8 @@ function VideoPlayer() {
         comments: [...video.comments, response.data],
       });
       setCommentText('');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to add comment');
+    } catch (_err) {
+      setError(_err.response?.data?.message || 'Failed to add comment');
     }
   };
 
@@ -63,7 +63,6 @@ function VideoPlayer() {
           <div className="mb-4">
             <h2 className="text-2xl font-bold">{video.title}</h2>
             <p className="text-gray-600">{video.uploader} • {video.views} views</p>
-            {/* Placeholder for video player */}
             <div className="w-full h-96 bg-gray-200 flex items-center justify-center">
               <p>Video Player Placeholder (URL: {video.thumbnailUrl})</p>
             </div>

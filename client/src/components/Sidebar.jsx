@@ -39,6 +39,11 @@ function Sidebar() {
                 Library
               </Link>
             </li>
+            <li>
+              <Link to="/upload" className="block p-2 hover:bg-gray-100">
+                Upload Video
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
