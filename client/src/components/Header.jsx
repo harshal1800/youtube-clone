@@ -15,8 +15,10 @@ function Header() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log('Search query:', searchQuery);
-    // Implement search later
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery('');
+    }
   };
 
   const handleSignOut = () => {

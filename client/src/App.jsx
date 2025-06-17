@@ -5,6 +5,8 @@ import Signup from './pages/Signup';
 import VideoPlayer from './pages/VideoPlayer';
 import Channel from './pages/Channel';
 import Upload from './pages/Upload';
+import SearchResults from './pages/SearchResults';
+import Subscriptions from './pages/Subscriptions';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/video/:id" element={<VideoPlayer />} />
         <Route path="/channel/:userId" element={<Channel />} />
         <Route path="/upload" element={<Upload />} />
+        <Route path="/search" element={<SearchResults />} />
+        <Route path="/subscriptions" element={<Subscriptions />} />
       </Routes>
     </Router>
   );
