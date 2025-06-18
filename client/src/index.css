@@ -1,3 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Roboto', sans-serif;
+  /* background-color: #fff; */
+  margin: 0;
+  padding: 0;
+  color: #0f0f0f;
+}
+
+/* YouTube's container width */
+.container {
+  @apply max-w-[1280px] mx-auto px-4;
+}
+
+/* Video card styles */
+.video-card {
+  @apply rounded-lg overflow-hidden transition-shadow duration-200;
+}
+.video-card:hover {
+  @apply shadow-md;
+}
+
+/* YouTube's button styles */
+.btn-primary {
+  @apply bg-[#cc0000] text-white px-4 py-2 rounded-full hover:bg-[#b30000] transition-colors duration-200 uppercase text-sm font-medium;
+}
+.btn-secondary {
+  @apply bg-gray-100 text-[#0f0f0f] px-4 py-2 rounded-full hover:bg-gray-200 transition-colors duration-200 uppercase text-sm font-medium;
+}
+
+/* Scrollbar styling to match YouTube */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #606060;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
